@@ -25,7 +25,7 @@ export default function ContactsList() {
 			{contactsList
 				?.filter(
 					contact =>
-						contact.name.toLowerCase().includes(filter.trim()) ||
+						contact.name.toLowerCase().includes(filter.toLowerCase().trim()) ||
 						contact.number.includes(filter.trim())
 				)
 				.map(({ id, name, number }) => {
