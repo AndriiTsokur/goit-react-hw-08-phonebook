@@ -1,10 +1,17 @@
 .main__title {
-	position: fixed;
-	top: 100px;
-	left: 0;
+	display: none;
+}
 
-	padding-left: 30px;
+@media screen and (min-width: 768px) {
+	.main__title {
+		position: fixed;
+		top: 100px;
+		left: 0;
 
-	color: #ffffff;
-	font-size: 60px;
+		display: block;
+		padding-left: 30px;
+
+		color: #ffffff;
+		font-size: 60px;
+	}
 }

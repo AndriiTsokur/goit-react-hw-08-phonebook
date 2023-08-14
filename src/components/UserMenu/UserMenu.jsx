@@ -23,7 +23,7 @@ const UserMenu = () => {
 			<Button
 				onClick={handleLogout}
 				variant="contained"
-				size="medium"
+				size="small"
 				type="button"
 			>
 				Log Out
