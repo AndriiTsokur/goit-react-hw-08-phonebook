@@ -1,0 +1,10 @@
+.main__title {
+	position: fixed;
+	top: 100px;
+	left: 0;
+
+	padding-left: 30px;
+
+	color: #ffffff;
+	font-size: 60px;
+}

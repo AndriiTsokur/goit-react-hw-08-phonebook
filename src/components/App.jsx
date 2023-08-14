@@ -5,6 +5,7 @@ import { selectUserLoggedIn, selectUserToken } from 'redux/auth/authSlice';
 import { refreshUserThunk } from 'redux/auth/authOperations';
 import SharedLayout from './SharedLayout';
 import PrivateRoute from './PrivateRoute';
+import { Box, CircularProgress } from '@mui/material';
 
 const LoginPage = lazy(() => import('pages/LoginPage'));
 const RegisterPage = lazy(() => import('pages/RegisterPage'));
@@ -22,7 +23,20 @@ const App = () => {
 	}, [token, isLoggedIn, dispatch]);
 
 	return (
-		<Suspense fallback={<p>Loading...</p>}>
+		<Suspense
+			fallback={
+				<Box
+					sx={{
+						display: 'flex',
+						height: '100vh',
+						justifyContent: 'center',
+						alignItems: 'center',
+					}}
+				>
+					<CircularProgress />
+				</Box>
+			}
+		>
 			<Routes>
 				<Route path="/" element={<SharedLayout />}>
 					<Route index element={<LoginPage />} />

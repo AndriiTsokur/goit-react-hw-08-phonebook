@@ -1,0 +1,40 @@
+.contacts__list {
+	margin-top: 20px;
+	padding-inline: 10px;
+
+	font-size: 14px;
+	font-weight: 300;
+}
+
+.contacts__item {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 10px;
+}
+
+.contacts__item > div > p:first-child {
+	margin-bottom: 5px;
+	font-weight: 500;
+}
+
+.contacts__item:not(:last-child) {
+	margin-bottom: 10px;
+}
+
+.contacts__item::before {
+	content: '\2756';
+}
+
+.contacts__item:not(:last-child)::after {
+	content: '';
+
+	display: flex;
+	width: 100%;
+	height: 1px;
+
+	background-color: rgba(0, 0, 0, 0.15);
+}
+
+.contacts__deleteBtn {
+	margin-left: auto !important;
+}

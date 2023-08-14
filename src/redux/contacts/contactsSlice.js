@@ -1,4 +1,4 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import {
 	getContactsThunk,
 	addContactThunk,
@@ -12,6 +12,16 @@ const initialState = {
 	error: null,
 };
 
+const handlePending = state => {
+	state.isLoading = true;
+	state.error = null;
+};
+
+const handleRejected = (state, action) => {
+	state.isLoading = false;
+	state.error = action.payload;
+};
+
 const contactsSlice = createSlice({
 	name: 'contacts',
 	initialState,
@@ -23,38 +33,18 @@ const contactsSlice = createSlice({
 	extraReducers: builder =>
 		builder
 			// ---------- Get List Of Contacts -----------
-			.addCase(getContactsThunk.pending, state => {
-				state.isLoading = true;
-				state.error = null;
-			})
 			.addCase(getContactsThunk.fulfilled, (state, action) => {
 				state.contactsList = action.payload;
 				state.isLoading = false;
 			})
-			.addCase(getContactsThunk.rejected, (state, action) => {
-				state.isLoading = false;
-				state.error = action.payload;
-			})
 
 			// ---------- Add New Contact -----------
-			.addCase(addContactThunk.pending, state => {
-				state.isLoading = true;
-				state.error = null;
-			})
 			.addCase(addContactThunk.fulfilled, (state, action) => {
 				state.contactsList.push(action.payload);
 				state.isLoading = false;
 			})
-			.addCase(addContactThunk.rejected, (state, action) => {
-				state.isLoading = false;
-				state.error = action.payload;
-			})
 
 			// ---------- Delete Contact -----------
-			.addCase(deleteContactThunk.pending, state => {
-				state.isLoading = true;
-				state.error = null;
-			})
 			.addCase(deleteContactThunk.fulfilled, (state, action) => {
 				const indexToDelete = state.contactsList.findIndex(
 					contact => contact.id === action.payload.id
@@ -62,10 +52,15 @@ const contactsSlice = createSlice({
 				state.contactsList.splice(indexToDelete, 1);
 				state.isLoading = false;
 			})
-			.addCase(deleteContactThunk.rejected, (state, action) => {
-				state.isLoading = false;
-				state.error = action.payload;
-			}),
+
+			.addMatcher(
+				isPending(getContactsThunk, addContactThunk, deleteContactThunk),
+				state => handlePending(state)
+			)
+			.addMatcher(
+				isRejected(getContactsThunk, addContactThunk, deleteContactThunk),
+				state => handleRejected(state)
+			),
 });
 
 export const selectContactsList = state => state.contacts.contactsList;

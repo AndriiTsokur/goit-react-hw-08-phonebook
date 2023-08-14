@@ -2,6 +2,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { registerUserThunk } from 'redux/auth/authOperations';
 import { selectUserError, selectUserLoggedIn } from 'redux/auth/authSlice';
+import Title from 'components/Title';
+import { Alert, AlertTitle, Button, TextField } from '@mui/material';
+import css from './RegisterPage.module.css';
 
 const RegisterPage = () => {
 	const dispatch = useDispatch();
@@ -27,28 +30,54 @@ const RegisterPage = () => {
 
 	return (
 		<main>
-			<section className="container">
-				<h1>Register New Account</h1>
+			<Title />
+			<section className={`container ${css.register__wrapper}`}>
+				<h2 className={css.register__title}>Register New Account</h2>
 				<form onSubmit={handleSignUp}>
-					<input
+					<TextField
 						type="text"
 						name="userName"
-						placeholder="Name"
-						minLength={2}
+						label="Enter your name"
+						margin="dense"
+						fullWidth
+						inputProps={{ minLength: 2 }}
 						required
 					/>
-					<input type="email" name="userEmail" placeholder="Email" required />
-					<input
+					<TextField
+						type="email"
+						name="userEmail"
+						label="E-mail"
+						margin="dense"
+						fullWidth
+						required
+					/>
+					<TextField
 						type="password"
 						name="userPswd"
-						placeholder="Password"
-						minLength={7}
+						label="Password"
+						margin="dense"
+						fullWidth
+						inputProps={{ minLength: 7 }}
 						required
 					/>
-					<button type="submit">Sign Up</button>
+					<Button
+						className={css.register__btn}
+						variant="contained"
+						size="large"
+						type="submit"
+					>
+						Submit
+					</Button>
 				</form>
 
-				{errorMessage && <p>{errorMessage}</p>}
+				{errorMessage && (
+					<Alert severity="error" className={css.mui__error}>
+						<AlertTitle>Error</AlertTitle>
+						Something went wrong, try again:
+						<br />
+						<strong>{errorMessage}</strong>
+					</Alert>
+				)}
 			</section>
 		</main>
 	);

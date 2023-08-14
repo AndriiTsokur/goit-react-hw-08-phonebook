@@ -2,6 +2,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Navigate } from 'react-router-dom';
 import { loginUserThunk } from 'redux/auth/authOperations';
 import { selectUserError, selectUserLoggedIn } from 'redux/auth/authSlice';
+import Title from 'components/Title';
+import { Alert, AlertTitle, Button, TextField } from '@mui/material';
+import css from './LoginPage.module.css';
 
 const LoginPage = () => {
 	const dispatch = useDispatch();
@@ -26,15 +29,45 @@ const LoginPage = () => {
 
 	return (
 		<main>
-			<section className="container">
-				<h1>Login</h1>
+			<Title />
+			<section className={`container ${css.login__wrapper}`}>
+				<h2 className={css.login__title}>Sign In</h2>
+
 				<form onSubmit={handleLogin}>
-					<input type="email" name="email" placeholder="Email" required />
-					<input type="password" name="pswd" placeholder="Password" required />
-					<button type="submit">Submit</button>
+					<TextField
+						type="email"
+						name="email"
+						label="E-mail"
+						margin="dense"
+						fullWidth
+						required
+					/>
+					<TextField
+						type="password"
+						name="pswd"
+						label="Password"
+						margin="dense"
+						fullWidth
+						required
+					/>
+					<Button
+						className={css.login__btn}
+						variant="contained"
+						size="large"
+						type="submit"
+					>
+						Submit
+					</Button>
 				</form>
 
-				{errorMessage && <p>{errorMessage}</p>}
+				{errorMessage && (
+					<Alert severity="error" className={css.mui__error}>
+						<AlertTitle>Error</AlertTitle>
+						Something went wrong, try again:
+						<br />
+						<strong>{errorMessage}</strong>
+					</Alert>
+				)}
 			</section>
 		</main>
 	);

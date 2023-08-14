@@ -1,0 +1,25 @@
+form {
+	display: flex;
+	flex-direction: column;
+}
+
+.login__wrapper {
+	padding-top: 10%;
+	text-align: center;
+}
+
+.login__title {
+	margin-bottom: 20px;
+
+	font-size: 24px;
+	font-weight: 400;
+	line-height: calc(32 / 24);
+}
+
+.login__btn {
+	margin-block: 30px !important;
+}
+
+.mui__error {
+	text-align: left;
+}

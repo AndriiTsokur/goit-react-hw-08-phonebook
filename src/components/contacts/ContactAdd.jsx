@@ -1,13 +1,11 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { addContactThunk } from 'redux/contacts/contactsOperations';
-import {
-	selectContactsError,
-	selectContactsList,
-} from 'redux/contacts/contactsSlice';
+import { selectContactsList } from 'redux/contacts/contactsSlice';
+import { Button, TextField } from '@mui/material';
+import css from './ContactsAdd.module.css';
 
 export default function ContactAdd() {
 	const dispatch = useDispatch();
-	const errorMessage = useSelector(selectContactsError);
 	const contactsList = useSelector(selectContactsList);
 
 	const handleAddUser = e => {
@@ -32,23 +30,34 @@ export default function ContactAdd() {
 
 	return (
 		<form onSubmit={handleAddUser}>
-			<input
+			<TextField
+				type="text"
 				name="userName"
-				type="text"
-				placeholder="Name"
-				minLength={2}
+				label="Name"
+				inputProps={{ minLength: 2 }}
+				margin="dense"
+				size="small"
+				fullWidth
 				required
 			/>
-			<input
+			<TextField
+				type="text"
 				name="userPhone"
-				type="text"
-				placeholder="Phone number"
-				minLength={5}
+				label="Phone number"
+				margin="dense"
+				fullWidth
+				size="small"
+				inputProps={{ minLength: 5 }}
 				required
 			/>
-			<button type="submit">Add user</button>
-
-			{errorMessage && <p>{errorMessage}</p>}
+			<Button
+				className={css.contactAdd__btn}
+				variant="contained"
+				size="small"
+				type="submit"
+			>
+				Add new contact
+			</Button>
 		</form>
 	);
 }

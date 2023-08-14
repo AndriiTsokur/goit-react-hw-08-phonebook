@@ -1,0 +1,18 @@
+.userMenu__container {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	gap: 20px;
+
+	width: 100%;
+}
+
+.userMenu__userName {
+	color: #f98b5e;
+	font-weight: 700;
+}
+
+.userMenu__userEmail {
+	font-size: 12px;
+	font-weight: 300;
+}

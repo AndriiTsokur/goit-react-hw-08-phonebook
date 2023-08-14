@@ -1,0 +1,36 @@
+.nav__wrapper {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+
+	height: 8vh;
+}
+
+.nav__list {
+	display: flex;
+	gap: 15px;
+
+	margin-block: 0;
+	padding-left: 0;
+}
+
+.nav__item {
+	list-style: none;
+}
+
+.nav__link {
+	padding-bottom: 5px;
+	color: #1357d0;
+	transition: color 250ms;
+}
+
+.nav__link:hover,
+.nav__link:focus {
+	color: #f98b5e;
+}
+
+.nav__link_active {
+	padding-bottom: 5px;
+	border-bottom: 3px solid #f98b5e;
+	color: #1357d0;
+}

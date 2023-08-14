@@ -1,0 +1,11 @@
+.contacts__wrapper {
+	padding-top: 30px;
+}
+
+.contacts__title {
+	margin-bottom: 20px;
+
+	font-size: 24px;
+	font-weight: 400;
+	line-height: calc(32 / 24);
+}
