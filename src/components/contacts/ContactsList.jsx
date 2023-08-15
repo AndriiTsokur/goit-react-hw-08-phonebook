@@ -1,10 +1,12 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { deleteContactThunk } from 'redux/contacts/contactsOperations';
 import {
+	selectContactsEditMode,
 	selectContactsError,
 	selectContactsFilter,
 	selectContactsIsLoading,
 	selectContactsList,
+	toggleEditMode,
 } from 'redux/contacts/contactsSlice';
 import {
 	Alert,
@@ -21,6 +23,7 @@ export default function ContactsList() {
 	const filter = useSelector(selectContactsFilter);
 	const isLoading = useSelector(selectContactsIsLoading);
 	const errorMessage = useSelector(selectContactsError);
+	const editModeOn = useSelector(selectContactsEditMode);
 
 	if (errorMessage)
 		return (
@@ -33,6 +36,10 @@ export default function ContactsList() {
 				</Alert>
 			</p>
 		);
+
+	const handleEdit = contactId => {
+		dispatch(toggleEditMode(contactId));
+	};
 
 	const handleDelete = contactId => {
 		dispatch(deleteContactThunk(contactId));
@@ -64,15 +71,25 @@ export default function ContactsList() {
 								<p>{name}:</p>
 								<p>{number}</p>
 							</div>
-							<Button
-								onClick={() => handleDelete(id)}
-								className={css.contacts__deleteBtn}
-								variant="contained"
-								size="small"
-								type="button"
-							>
-								Delete
-							</Button>
+							<div className={css.contacts__btnWrapper}>
+								<Button
+									onClick={() => handleEdit(id)}
+									variant="contained"
+									size="small"
+									type="button"
+									disabled={editModeOn}
+								>
+									Edit
+								</Button>
+								<Button
+									onClick={() => handleDelete(id)}
+									variant="contained"
+									size="small"
+									type="button"
+								>
+									Delete
+								</Button>
+							</div>
 						</li>
 					);
 				})}

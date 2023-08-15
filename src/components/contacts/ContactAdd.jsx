@@ -1,15 +1,27 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { addContactThunk } from 'redux/contacts/contactsOperations';
-import { selectContactsList } from 'redux/contacts/contactsSlice';
+import {
+	addContactThunk,
+	editContactThunk,
+} from 'redux/contacts/contactsOperations';
+import {
+	editUserName,
+	editUserNumber,
+	selectContactsEditMode,
+	selectContactsEditedUserData,
+	selectContactsList,
+} from 'redux/contacts/contactsSlice';
 import { Button, TextField } from '@mui/material';
 import css from './ContactsAdd.module.css';
 
 export default function ContactAdd() {
 	const dispatch = useDispatch();
 	const contactsList = useSelector(selectContactsList);
+	const editModeOn = useSelector(selectContactsEditMode);
+	const editedUserData = useSelector(selectContactsEditedUserData);
 
-	const handleAddUser = e => {
+	const handleSubmitUser = e => {
 		e.preventDefault();
+
 		const form = e.currentTarget;
 		const name = form.elements.userName.value.trim();
 		const number = form.elements.userPhone.value.trim();
@@ -23,14 +35,26 @@ export default function ContactAdd() {
 				`The contact named ${name} has already been entered into the address book before`
 			);
 		} else {
-			dispatch(addContactThunk({ name, number }));
+			dispatch(
+				editModeOn
+					? editContactThunk(editedUserData)
+					: addContactThunk({ name, number })
+			);
 			form.reset();
 		}
 	};
 
+	const handleInput = e => {
+		e.target.name === 'userName'
+			? dispatch(editUserName(e.target.value))
+			: dispatch(editUserNumber(e.target.value));
+	};
+
 	return (
-		<form onSubmit={handleAddUser}>
+		<form onSubmit={handleSubmitUser}>
 			<TextField
+				value={editedUserData.name}
+				onChange={handleInput}
 				type="text"
 				name="userName"
 				label="Name"
@@ -41,6 +65,8 @@ export default function ContactAdd() {
 				required
 			/>
 			<TextField
+				value={editedUserData.number}
+				onChange={handleInput}
 				type="text"
 				name="userPhone"
 				label="Phone number"
@@ -56,7 +82,7 @@ export default function ContactAdd() {
 				size="small"
 				type="submit"
 			>
-				Add new contact
+				{editModeOn ? 'Update contact' : 'Add new contact'}
 			</Button>
 		</form>
 	);

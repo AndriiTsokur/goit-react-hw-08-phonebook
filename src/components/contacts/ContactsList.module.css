@@ -35,6 +35,8 @@
 	background-color: rgba(0, 0, 0, 0.15);
 }
 
-.contacts__deleteBtn {
-	margin-left: auto !important;
+.contacts__btnWrapper {
+	display: flex;
+	gap: 5px;
+	margin-left: auto;
 }
