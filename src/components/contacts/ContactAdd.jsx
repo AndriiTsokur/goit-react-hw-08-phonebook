@@ -9,6 +9,7 @@ import {
 	selectContactsEditMode,
 	selectContactsEditedUserData,
 	selectContactsList,
+	setEditModeOff,
 } from 'redux/contacts/contactsSlice';
 import { Button, TextField } from '@mui/material';
 import css from './ContactsAdd.module.css';
@@ -49,6 +50,12 @@ export default function ContactAdd() {
 			? dispatch(editUserName(e.target.value))
 			: dispatch(editUserNumber(e.target.value));
 	};
+
+	if (editModeOn) {
+		document.addEventListener('keydown', e => {
+			if (e.code === 'Escape') dispatch(setEditModeOff());
+		});
+	}
 
 	return (
 		<form onSubmit={handleSubmitUser}>

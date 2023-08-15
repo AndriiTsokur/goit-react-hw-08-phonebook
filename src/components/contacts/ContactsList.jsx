@@ -86,6 +86,7 @@ export default function ContactsList() {
 									variant="contained"
 									size="small"
 									type="button"
+									color="error"
 								>
 									Delete
 								</Button>

@@ -34,6 +34,10 @@ const contactsSlice = createSlice({
 		setFilter(state, action) {
 			state.filter = action.payload;
 		},
+		setEditModeOff(state) {
+			state.editModeOn = false;
+			state.editedUserData = { id: '', name: '', number: '' };
+		},
 		toggleEditMode(state, action) {
 			state.editModeOn = !state.editModeOn;
 			const indexToEdit = state.contactsList.findIndex(
@@ -113,5 +117,6 @@ export const { setFilter } = contactsSlice.actions;
 export const { toggleEditMode } = contactsSlice.actions;
 export const { editUserName } = contactsSlice.actions;
 export const { editUserNumber } = contactsSlice.actions;
+export const { setEditModeOff } = contactsSlice.actions;
 
 export const contactsReducer = contactsSlice.reducer;
