@@ -59,12 +59,13 @@ export default function ContactAdd() {
 	const handleClick = e => {
 		if (e.target.nodeName !== 'INPUT' && e.target.nodeName !== 'BUTTON')
 			dispatch(setEditModeOff());
-		document.removeEventListener('mousedown', handleClick);
 	};
 
 	if (editModeOn) {
 		document.addEventListener('keydown', handleEscape);
 		document.addEventListener('mousedown', handleClick);
+	} else {
+		document.removeEventListener('mousedown', handleClick);
 	}
 
 	return (
