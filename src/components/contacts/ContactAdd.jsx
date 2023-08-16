@@ -29,12 +29,15 @@ export default function ContactAdd() {
 
 		if (
 			contactsList.find(
-				contact => contact.name.toLowerCase() === name.toLowerCase()
+				contact =>
+					contact.name.toLowerCase() === name.toLowerCase() &&
+					contact.number === number
 			)
 		) {
 			alert(
-				`The contact named ${name} has already been entered into the address book before`
+				`The contact named ${name} with phone number ${number} has already been entered into the address book before`
 			);
+			dispatch(setEditModeOff());
 		} else {
 			dispatch(
 				editModeOn

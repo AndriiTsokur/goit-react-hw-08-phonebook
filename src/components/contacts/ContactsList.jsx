@@ -64,6 +64,7 @@ export default function ContactsList() {
 						contact.name.toLowerCase().includes(filter.toLowerCase().trim()) ||
 						contact.number.includes(filter.trim())
 				)
+				.sort((a, b) => a.name.localeCompare(b.name))
 				.map(({ id, name, number }) => {
 					return (
 						<li key={id} className={css.contacts__item}>
