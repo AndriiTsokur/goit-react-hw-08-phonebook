@@ -51,10 +51,20 @@ export default function ContactAdd() {
 			: dispatch(editUserNumber(e.target.value));
 	};
 
+	const handleEscape = e => {
+		if (e.code === 'Escape') dispatch(setEditModeOff());
+		document.removeEventListener('keydown', handleEscape);
+	};
+
+	const handleClick = e => {
+		if (e.target.nodeName !== 'INPUT' && e.target.nodeName !== 'BUTTON')
+			dispatch(setEditModeOff());
+		document.removeEventListener('mousedown', handleClick);
+	};
+
 	if (editModeOn) {
-		document.addEventListener('keydown', e => {
-			if (e.code === 'Escape') dispatch(setEditModeOff());
-		});
+		document.addEventListener('keydown', handleEscape);
+		document.addEventListener('mousedown', handleClick);
 	}
 
 	return (

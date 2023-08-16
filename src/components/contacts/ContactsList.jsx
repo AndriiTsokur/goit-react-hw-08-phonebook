@@ -87,6 +87,7 @@ export default function ContactsList() {
 									size="small"
 									type="button"
 									color="error"
+									disabled={editModeOn}
 								>
 									Delete
 								</Button>
